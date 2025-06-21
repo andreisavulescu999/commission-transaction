@@ -7,10 +7,6 @@ use App\Service\CommissionCalculator;
 use App\Service\CurrencyConverter;
 use App\Service\WeeklyWithdrawTracker;
 use Exception;
-use Symfony\Component\Serializer\Encoder\CsvEncoder;
-use Symfony\Component\Serializer\Exception\NotEncodableValueException;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
 
 class Bootstrap
 {
@@ -27,18 +23,13 @@ class Bootstrap
         $converter = new CurrencyConverter();
         $calculator = new CommissionCalculator($converter, $tracker);
 
-        $encoders = [new CsvEncoder()];
-        $normalizers = [new ObjectNormalizer()];
-        $serializer = new Serializer($normalizers, $encoders);
-
         $results = [];
 
         foreach ($lines as $line) {
             try {
-                $data = $serializer->decode($line, 'csv', ['csv_header' => self::CSV_HEADER]);
-                $operationDto = $serializer->denormalize($data, OperationDto::class);
+                $operationDto = OperationDto::fromCsvLine($line);
                 $results[] = $calculator->handleDto($operationDto);
-            } catch (NotEncodableValueException|Exception $e) {
+            } catch (Exception $e) {
                 throw new Exception("Failed to parse or process line: $line. " . $e->getMessage());
             }
         }
