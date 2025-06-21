@@ -1,0 +1,9 @@
+/composer.lock
+/vendor/
+*.log
+/.idea/material_theme_project_new.xml
+/.idea/modules.xml
+/.idea/php.xml
+/.idea/vcs.xml
+/.idea/bin-commision.iml
+/.phpunit.result.cache
