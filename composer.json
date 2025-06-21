@@ -16,11 +16,7 @@
     }
   },
   "require": {
-    "php": "^8.2",
-    "symfony/serializer": "^7.3",
-    "symfony/property-access": "^7.3",
-    "symfony/property-info": "^7.3",
-    "symfony/dotenv": "^7.3"
+    "php": "^8.2"
   },
   "config": {
     "platform": {

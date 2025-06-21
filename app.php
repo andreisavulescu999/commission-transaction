@@ -5,7 +5,7 @@ require 'vendor/autoload.php';
 use App\Bootstrap;
 
 if ($argc !== 2) {
-    echo "Usage: php script.php input.csv\n";
+    echo "Usage: php app.php input.csv\n";
     exit(1);
 }
 
